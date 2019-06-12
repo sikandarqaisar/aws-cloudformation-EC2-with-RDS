@@ -1,7 +1,7 @@
-## aws-cloudformation-EC2-with-RDS
+## AWS-CloudFormation-EC2-with-RDS
 
 
-<img src= "https://github.com/sikandarqaisar/CloudFormation-MYSQLWebApplication/blob/master/template1.png" width="600" height="600">
+<img src= "https://github.com/sikandarqaisar/CloudFormation-MYSQLWebApplication/blob/master/template.jpg" width="600" height="600">
 
 
 
