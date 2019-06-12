@@ -1,7 +1,7 @@
 ## AWS-CloudFormation-EC2-with-RDS
 
 
-<img src= "https://github.com/sikandarqaisar/aws-cloudformation-EC2-with-RDS/master/template.jpg" width="600" height="600">
+<img src= "https://github.com/sikandarqaisar/aws-cloudformation-EC2-with-RDS/blob/master/template.jpg" width="600" height="600">
 
 
 
