@@ -1,24 +1,22 @@
 ## aws-cloudformation-EC2-with-RDS
 
 ### Description:
+EC2 instance connect with RDS and RDS read Replica and Read Replica have Elastic Cache (Redis).
 
-#### steps:
-1. EC2WithRds.yaml
 
-### dynamoDB Stack:
+### Upload Stack:
 ~~~
-Upload dynamodb.yaml Stack.
+Upload EC2&Rds.yaml File.
 ~~~
 
 **Description:**
-This stack create dynamoDB table with name 'customers' and create IAM role with LambdaFullAccess and apiGatewayFullAccess.
+Upload this file in aws-cloudformation. Stack Created by this file will Create two EC2 Instances with Ubuntu AMI, and Relation Database Service (RDS) with their Read Replica and MultiAZ unable. Both Instances are in different Availability Zone. First Instance is connected to main RDS Instance and second one is connected to Read Replica of that RDS Instance just for Read operation from database. Then this stack create Redis Elastic Cache and attach it to the Second Instance that have Read Only access to the data base. Simple Database Web Application is already on S3 bucket that have publically accessable.    
 
 
 
 
 ### Tips:
 #### 1.
-use this in to post method in apiGateway
 ~~~
-{ "customersId":"Any Number","Name":"Any value","Location":"Any location" }
+Use Public IPs of EC2 Instances to test data. 
 ~~~
