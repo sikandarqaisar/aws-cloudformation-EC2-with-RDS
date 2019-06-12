@@ -263,7 +263,7 @@ Resources:
       KeyName:
         Ref: key
       SubnetId: 
-        Ref: Subnet2
+        Ref: Subnet1
       SecurityGroupIds:
         - !Ref PublicSecurityGroup
       Tags:
