@@ -15,7 +15,7 @@ EC2 instance connect with RDS and RDS read Replica and Read Replica have Elastic
 
 ### Upload Stack:
 ~~~
-Upload EC2&Rds.yaml File.
+Upload EC2WithRds.yaml File.
 ~~~
 
 **Description:**
