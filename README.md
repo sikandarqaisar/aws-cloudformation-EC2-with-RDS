@@ -19,7 +19,7 @@ Upload EC2&Rds.yaml File.
 ~~~
 
 **Description:**
-Upload this file in aws-cloudformation. Stack Created by this file will Create two EC2 Instances with Ubuntu AMI, and Relation Database Service (RDS) with their Read Replica and MultiAZ unable. Both Instances are in different Availability Zone. First Instance is connected to main RDS Instance and second one is connected to Read Replica of that RDS Instance just for Read operation from database. Then this stack create Redis Elastic Cache and attach it to the Second Instance that have Read Only access to the data base. Simple Database Web Application is already on S3 bucket that have publically accessable.    
+Upload this file in aws-cloudformation. Stack Created by this file will Create two EC2 Instances with Ubuntu AMI, and Relation Database Service (RDS) with their Read Replica and MultiAZ unable. First Instance is connected to main RDS Instance and second one is connected to Read Replica of that RDS Instance just for Read operation from database. Then this stack create Redis Elastic Cache and attach it to the Second Instance that have Read Only access to the data base. Simple Database Web Application is already on S3 bucket that have publically accessable.    
 
 
 
