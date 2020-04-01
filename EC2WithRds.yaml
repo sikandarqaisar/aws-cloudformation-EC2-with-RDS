@@ -169,186 +169,186 @@ Resources:
         - Key: Name
           Value: sikandarStack
 
-  DBSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Allow MySQL to DB
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 3306
-          ToPort: 3306
-          CidrIp: 0.0.0.0/0
-      VpcId:
-        Ref: VPC
-      Tags:
-        - Key: Name
-          Value: SikadnarDBSecurityGroup
+#   DBSecurityGroup:
+#     Type: AWS::EC2::SecurityGroup
+#     Properties:
+#       GroupDescription: Allow MySQL to DB
+#       SecurityGroupIngress:
+#         - IpProtocol: tcp
+#           FromPort: 3306
+#           ToPort: 3306
+#           CidrIp: 0.0.0.0/0
+#       VpcId:
+#         Ref: VPC
+#       Tags:
+#         - Key: Name
+#           Value: SikadnarDBSecurityGroup
 
 
 
 
 
 
-  webserver:
-    Type: AWS::EC2::Instance
-    Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
-      InstanceType: t2.micro
-      UserData:
-        Fn::Base64: !Sub 
-        - |
-          #!/bin/bash
-          set -x
-          sleep 2m
-          apt-get -y update
-          apt-get install apache2 -y
-          apt-get install mysql-server -y
-          apt-get install php-mysql -y
-          apt-get install php libapache2-mod-php -y
-          apt-get install zip -y
-          cd /var/www
-          rm -rf html
-          wget https://s3.amazonaws.com/alamkey/html1.zip
-          unzip html1.zip
-          mysql -u sikandar -psikandar -h myrdsdb.ccvyw5hnor6i.us-east-2.rds.amazonaws.com << EOF 
-          USE sikandar;
-          CREATE TABLE users (
-          id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,firstname VARCHAR(30) NOT NULL,lastname VARCHAR(30) NOT NULL,email VARCHAR(50) NOT NULL,age INT(3),location VARCHAR(50),date TIMESTAMP );
-          exit;
-          EOF
-          sed -i -e 's/localhost/${DBEndPoint}/g' /var/www/html/config.php
-        - DBEndPoint: 
-            Fn::GetAtt: [ MyDB,"Endpoint.Address" ] 
+#   webserver:
+#     Type: AWS::EC2::Instance
+#     Properties:
+#       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
+#       InstanceType: t2.micro
+#       UserData:
+#         Fn::Base64: !Sub 
+#         - |
+#           #!/bin/bash
+#           set -x
+#           sleep 2m
+#           apt-get -y update
+#           apt-get install apache2 -y
+#           apt-get install mysql-server -y
+#           apt-get install php-mysql -y
+#           apt-get install php libapache2-mod-php -y
+#           apt-get install zip -y
+#           cd /var/www
+#           rm -rf html
+#           wget https://s3.amazonaws.com/alamkey/html1.zip
+#           unzip html1.zip
+#           mysql -u sikandar -psikandar -h myrdsdb.ccvyw5hnor6i.us-east-2.rds.amazonaws.com << EOF 
+#           USE sikandar;
+#           CREATE TABLE users (
+#           id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,firstname VARCHAR(30) NOT NULL,lastname VARCHAR(30) NOT NULL,email VARCHAR(50) NOT NULL,age INT(3),location VARCHAR(50),date TIMESTAMP );
+#           exit;
+#           EOF
+#           sed -i -e 's/localhost/${DBEndPoint}/g' /var/www/html/config.php
+#         - DBEndPoint: 
+#             Fn::GetAtt: [ MyDB,"Endpoint.Address" ] 
 
-      KeyName:
-        Ref: key
-      SubnetId: 
-        Ref: Subnet1
-      SecurityGroupIds:
-        - !Ref PublicSecurityGroup
-      Tags:
-        - Key: Name
-          Value: WebServer
-
-
-  ReadOnlywebserver1:
-    Type: AWS::EC2::Instance
-    Properties:
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
-      InstanceType: t2.micro
-      UserData:
-        Fn::Base64: !Sub 
-        - |
-          #!/bin/bash
-          set -x
-          sleep 2m
-          apt-get -y update
-          apt-get install apache2 -y
-          apt-get install mysql-server -y
-          apt-get install php-mysql -y
-          apt-get install php libapache2-mod-php -y
-          apt-get install zip -y
-          cd /var/www
-          rm -rf html
-          wget https://s3.amazonaws.com/alamkey/html1.zip
-          unzip html1.zip
-          sed -i -e 's/localhost/${ReplicaDBEndPoint}/g' /var/www/html/config.php
-          apt install gcc -y
-          wget http://download.redis.io/redis-stable.tar.gz
-          tar xvzf redis-stable.tar.gz
-          cd redis-stable
-          apt-get install make
-          make distclean 
-          make
-        - ReplicaDBEndPoint: 
-            Fn::GetAtt: [ ReplicaDB,"Endpoint.Address" ] 
-      KeyName:
-        Ref: key
-      SubnetId: 
-        Ref: Subnet1
-      SecurityGroupIds:
-        - !Ref PublicSecurityGroup
-      Tags:
-        - Key: Name
-          Value: ReadOnlyWebServer
+#       KeyName:
+#         Ref: key
+#       SubnetId: 
+#         Ref: Subnet1
+#       SecurityGroupIds:
+#         - !Ref PublicSecurityGroup
+#       Tags:
+#         - Key: Name
+#           Value: WebServer
 
 
-  rdsDBSubnetGroup:
-    Type: AWS::RDS::DBSubnetGroup
-    Properties:
-      DBSubnetGroupDescription: rdsDBSubnetGroup
-      SubnetIds:
-        - !Ref Subnet1
-        - !Ref Subnet2
-      Tags:
-        - Key: Name
-          Value: SikadnarRdsDBSecurityGroup 
+#   ReadOnlywebserver1:
+#     Type: AWS::EC2::Instance
+#     Properties:
+#       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
+#       InstanceType: t2.micro
+#       UserData:
+#         Fn::Base64: !Sub 
+#         - |
+#           #!/bin/bash
+#           set -x
+#           sleep 2m
+#           apt-get -y update
+#           apt-get install apache2 -y
+#           apt-get install mysql-server -y
+#           apt-get install php-mysql -y
+#           apt-get install php libapache2-mod-php -y
+#           apt-get install zip -y
+#           cd /var/www
+#           rm -rf html
+#           wget https://s3.amazonaws.com/alamkey/html1.zip
+#           unzip html1.zip
+#           sed -i -e 's/localhost/${ReplicaDBEndPoint}/g' /var/www/html/config.php
+#           apt install gcc -y
+#           wget http://download.redis.io/redis-stable.tar.gz
+#           tar xvzf redis-stable.tar.gz
+#           cd redis-stable
+#           apt-get install make
+#           make distclean 
+#           make
+#         - ReplicaDBEndPoint: 
+#             Fn::GetAtt: [ ReplicaDB,"Endpoint.Address" ] 
+#       KeyName:
+#         Ref: key
+#       SubnetId: 
+#         Ref: Subnet1
+#       SecurityGroupIds:
+#         - !Ref PublicSecurityGroup
+#       Tags:
+#         - Key: Name
+#           Value: ReadOnlyWebServer
 
-  MyDB:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      DBInstanceIdentifier: myRdsDB
-      DBSubnetGroupName: 
-        Ref: rdsDBSubnetGroup
-      DBName: sikandar
-      VPCSecurityGroups: 
-        - !Ref DBSecurityGroup
-      AllocatedStorage: '5'
-      MultiAZ: true
-      Port: 3306
-      EngineVersion: 5.7.22
-      DBInstanceClass: db.t2.micro
-      Engine: MySQL
-      MasterUsername: sikandar
-      MasterUserPassword: sikandar
-      Tags:
-        - Key: Name
-          Value: SikandarDBIns
 
-  ReplicaDB:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      DBInstanceIdentifier: myReplicaRds
-      SourceDBInstanceIdentifier: !Ref MyDB
-      DBInstanceClass: db.t2.micro
-      Tags:
-      - Key: Name
-        Value: Read Replica Database
+#   rdsDBSubnetGroup:
+#     Type: AWS::RDS::DBSubnetGroup
+#     Properties:
+#       DBSubnetGroupDescription: rdsDBSubnetGroup
+#       SubnetIds:
+#         - !Ref Subnet1
+#         - !Ref Subnet2
+#       Tags:
+#         - Key: Name
+#           Value: SikadnarRdsDBSecurityGroup 
 
-  ElasticacheComponentSecurityGroup:
-    Type: "AWS::EC2::SecurityGroup"
-    Properties:
-      GroupDescription: "Elasticache security group"
-      SecurityGroupIngress:
-        -
-          IpProtocol: "tcp"
-          FromPort: "6379"
-          ToPort: "6379"
-          SourceSecurityGroupId:
-            Ref: PublicSecurityGroup
-      VpcId:
-        Ref: VPC
-  SubnetGroup: 
-    Type: AWS::ElastiCache::SubnetGroup
-    Properties: 
-      Description: "Cache Subnet Group"
-      SubnetIds: 
-        - Ref: "Subnet1"
+#   MyDB:
+#     Type: AWS::RDS::DBInstance
+#     Properties:
+#       DBInstanceIdentifier: myRdsDB
+#       DBSubnetGroupName: 
+#         Ref: rdsDBSubnetGroup
+#       DBName: sikandar
+#       VPCSecurityGroups: 
+#         - !Ref DBSecurityGroup
+#       AllocatedStorage: '5'
+#       MultiAZ: true
+#       Port: 3306
+#       EngineVersion: 5.7.22
+#       DBInstanceClass: db.t2.micro
+#       Engine: MySQL
+#       MasterUsername: sikandar
+#       MasterUserPassword: sikandar
+#       Tags:
+#         - Key: Name
+#           Value: SikandarDBIns
 
-  ElasticacheCluster:
-    Type: AWS::ElastiCache::CacheCluster
-    Properties:
-      CacheSubnetGroupName: !Ref SubnetGroup
-      AutoMinorVersionUpgrade: true
-      Engine: redis
-      EngineVersion: 5.0.4
-      CacheNodeType: cache.t2.micro
-      NumCacheNodes: 1
-      VpcSecurityGroupIds: 
-        - !Ref ElasticacheComponentSecurityGroup
-      Tags:
-        - Key: Name
-          Value: SikandarElasticCache
+#   ReplicaDB:
+#     Type: AWS::RDS::DBInstance
+#     Properties:
+#       DBInstanceIdentifier: myReplicaRds
+#       SourceDBInstanceIdentifier: !Ref MyDB
+#       DBInstanceClass: db.t2.micro
+#       Tags:
+#       - Key: Name
+#         Value: Read Replica Database
+
+#   ElasticacheComponentSecurityGroup:
+#     Type: "AWS::EC2::SecurityGroup"
+#     Properties:
+#       GroupDescription: "Elasticache security group"
+#       SecurityGroupIngress:
+#         -
+#           IpProtocol: "tcp"
+#           FromPort: "6379"
+#           ToPort: "6379"
+#           SourceSecurityGroupId:
+#             Ref: PublicSecurityGroup
+#       VpcId:
+#         Ref: VPC
+#   SubnetGroup: 
+#     Type: AWS::ElastiCache::SubnetGroup
+#     Properties: 
+#       Description: "Cache Subnet Group"
+#       SubnetIds: 
+#         - Ref: "Subnet1"
+
+#   ElasticacheCluster:
+#     Type: AWS::ElastiCache::CacheCluster
+#     Properties:
+#       CacheSubnetGroupName: !Ref SubnetGroup
+#       AutoMinorVersionUpgrade: true
+#       Engine: redis
+#       EngineVersion: 5.0.4
+#       CacheNodeType: cache.t2.micro
+#       NumCacheNodes: 1
+#       VpcSecurityGroupIds: 
+#         - !Ref ElasticacheComponentSecurityGroup
+#       Tags:
+#         - Key: Name
+#           Value: SikandarElasticCache
 
 
 
