@@ -358,26 +358,26 @@ Resources:
 
 
 
-Outputs:
- SubnetValue1:
-   Description: A reference to the created PublicSubnets
-   Value: !Ref Subnet1
-   Export:
-      Name: !Sub "sikandarStack-Subnet1"      
+# Outputs:
+#  SubnetValue1:
+#    Description: A reference to the created PublicSubnets
+#    Value: !Ref Subnet1
+#    Export:
+#       Name: !Sub "sikandarStack-Subnet1"      
 
- PublicSecurityGroup:
-   Description: A reference to the created PublicSecurityGroup
-   Value: !Ref PublicSecurityGroup
-   Export:
-      Name: !Sub "sikandarStack-PublicSecurityGroup"
+#  PublicSecurityGroup:
+#    Description: A reference to the created PublicSecurityGroup
+#    Value: !Ref PublicSecurityGroup
+#    Export:
+#       Name: !Sub "sikandarStack-PublicSecurityGroup"
 
- AvailabilityZone1:
-   Description: A reference to the created AvailabilityZone1
-   Value: !Ref AvailabilityZone1
-   Export:
-      Name: !Sub "sikandarStack-AvailabilityZone1"
- DBEndPoint:
-   Description: A reference to the End point of DBInstance
-   Value: { "Fn::GetAtt": [ "MyDB","Endpoint.Address" ] }
-   Export:
-      Name: !Sub "DBEndPoint"      
+#  AvailabilityZone1:
+#    Description: A reference to the created AvailabilityZone1
+#    Value: !Ref AvailabilityZone1
+#    Export:
+#       Name: !Sub "sikandarStack-AvailabilityZone1"
+#  DBEndPoint:
+#    Description: A reference to the End point of DBInstance
+#    Value: { "Fn::GetAtt": [ "MyDB","Endpoint.Address" ] }
+#    Export:
+#       Name: !Sub "DBEndPoint"      
