@@ -5,3 +5,4 @@ phases:
   build:
     commands:
       - echo "Hello World"
+      - key = sikandar-keypair-ohio
