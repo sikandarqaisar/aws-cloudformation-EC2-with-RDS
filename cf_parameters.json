@@ -1,6 +1,5 @@
-
-{ 
-  "Parameters": {
+[
+    {
      "key":"sikandar-keypair-ohio"
-  }
-}
+    }
+]
