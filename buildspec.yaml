@@ -6,3 +6,11 @@ phases:
     commands:
       - echo "Hello World"
       - export key='sikandar-keypair-ohio'
+      
+      
+artifacts:
+  files:
+    - cf_params.json
+  name: artifact-name
+  discard-paths: yes
+  base-directory: location      
