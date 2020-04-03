@@ -5,9 +5,10 @@ phases:
   build:
     commands:
       - echo "Hello World"
-      - export key='sikandar-keypair-ohio'
-      - echo  '{"Parameters" : {"key" : "sikandar-keypair-ohio"}}' > output.json  
-      
+      - jo -p Parameters=$(jo key=sikandar-keypair-ohio)
+#       - jo "{"Parameters" : {"key" : "sikandar-keypair-ohio"}}" > output.json  
+#       - export key='sikandar-keypair-ohio'
+
 artifacts:
   files:
     - output.json
