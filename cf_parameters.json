@@ -1,6 +1,16 @@
-[
-  {
-    "ParameterKey": "key",
-    "ParameterValue": "sikandar-keypair-ohio"
+{
+  "Parameters" : {
+    "key" : "sikandar-keypair-ohio"
+    "apiStage" : "tagDev"
+  },
+  "StackPolicy" : {
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "NotAction" : "Update:Delete",
+        "Principal": "*",
+        "Resource" : "*"
+      }
+    ]
   }
-]
+}
