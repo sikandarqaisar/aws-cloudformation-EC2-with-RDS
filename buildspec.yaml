@@ -6,7 +6,7 @@ phases:
     commands:
       - echo "Hello World"
       - export key="sikandar-keypair-ohio"
-      - echo '{"Parameters":{"key":'$key'}}' | jq . >output.json
+      - echo '{"Parameters":{"key":"$key"}}' | jq . >output.json
       - cat output.json 
 
 artifacts:
