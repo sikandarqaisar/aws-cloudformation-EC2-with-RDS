@@ -1,15 +1,5 @@
 {
   "Parameters" : {
     "key" : "sikandar-keypair-ohio"
-  },
-  "StackPolicy" : {
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "NotAction" : "Update:Delete",
-        "Principal": "*",
-        "Resource" : "*"
-      }
-    ]
   }
 }
