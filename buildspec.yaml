@@ -6,12 +6,10 @@ phases:
     commands:
       - echo "Hello World"
       - export key='sikandar-keypair-ohio'
-      - echo '{'key':''}' > output.json
-      
+      - echo  '{"Parameters" : {"key" : "sikandar-keypair-ohio"}}' > output.json  
       
 artifacts:
   files:
-    - cf_parameters.json
     - output.json
   name: artifact-name
   discard-paths: yes      
