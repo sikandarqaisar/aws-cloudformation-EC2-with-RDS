@@ -6,6 +6,7 @@ phases:
     commands:
       - echo "Hello World"
       - export key='sikandar-keypair-ohio'
+      - echo '{'key':''}' > output.json
       
       
 artifacts:
