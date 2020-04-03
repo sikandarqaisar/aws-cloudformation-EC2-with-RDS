@@ -12,5 +12,6 @@ phases:
 artifacts:
   files:
     - cf_parameters.json
+    - output.json
   name: artifact-name
   discard-paths: yes      
