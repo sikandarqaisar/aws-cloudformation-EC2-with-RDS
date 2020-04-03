@@ -5,7 +5,11 @@ phases:
   build:
     commands:
       - echo "Hello World"
-      - yum install jo -y
+      - yum install epel-release -y 
+      - yum install snapd -y 
+      - systemctl enable --now snapd.socket -y
+      - ln -s /var/lib/snapd/snap /snap -y
+      - snap install jo -y
       - jo -p Parameters=$(jo key=sikandar-keypair-ohio)> output.json  
 #       - jo "{"Parameters" : {"key" : "sikandar-keypair-ohio"}}" > output.json  
 #       - export key='sikandar-keypair-ohio'
