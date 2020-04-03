@@ -1,7 +1,6 @@
 {
   "Parameters" : {
     "key" : "sikandar-keypair-ohio"
-    "apiStage" : "tagDev"
   },
   "StackPolicy" : {
     "Statement" : [
