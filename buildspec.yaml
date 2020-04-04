@@ -1,11 +1,13 @@
 
 version: 0.1
 
-phases:   
+phases:  
+  install:
+    commands:
+      - key="sikandar-keypair-ohio"
   build:
     commands:
       - echo "Hello World"
-      - key="sikandar-keypair-ohio"
       - echo $key
       - echo '{"Parameters":{"key":"'$key'"}}' | jq . >output.json
       - cat output.json 
